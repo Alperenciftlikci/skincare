@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GlowIQ — See your real skin. Get a routine made for you.</title>
+
+<!-- Primary SEO -->
+<meta name="description" content="GlowIQ is your AI skincare companion. Take a selfie, get an instant skin analysis with scores, a personalized phased routine, and a product & ingredient scanner. Track your skin over time." />
+<meta name="keywords" content="skincare app, AI skin analysis, skin scanner, skincare routine, ingredient scanner, skin tracking, GlowIQ" />
+<meta name="theme-color" content="#FAF6F1" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1A1715" media="(prefers-color-scheme: dark)" />
+<link rel="canonical" href="https://alperenciftlikci.github.io/skincare/" />
+
+<!-- Apple Smart App Banner (replace placeholder app-id) -->
+<meta name="apple-itunes-app" content="app-id=000000000, app-argument=https://alperenciftlikci.github.io/skincare/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="GlowIQ" />
+<meta property="og:title" content="GlowIQ — See your real skin. Get a routine made for you." />
+<meta property="og:description" content="Take a selfie, get an AI skin analysis with scores, a personalized phased routine, and an ingredient scanner. Track your skin daily over time." />
+<meta property="og:url" content="https://alperenciftlikci.github.io/skincare/" />
+<meta property="og:image" content="https://alperenciftlikci.github.io/skincare/og-image.png" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="GlowIQ — See your real skin. Get a routine made for you." />
+<meta name="twitter:description" content="Your AI skincare companion. Selfie-based skin analysis, scores, a personalized routine, and an ingredient scanner." />
+<meta name="twitter:image" content="https://alperenciftlikci.github.io/skincare/og-image.png" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 8 C68 40 82 60 50 92 C18 60 32 40 50 8 Z' fill='%23C25C7A'/%3E%3Ccircle cx='42' cy='66' r='6' fill='%23FAF6F1' opacity='0.5'/%3E%3C/svg%3E" />
+
+<style>
+  :root {
+    --bg: #FAF6F1;
+    --surface: #FFFDFB;
+    --text: #2B2724;
+    --text-2: #6B635C;
+    --accent: #C25C7A;
+    --accent-deep: #A23E60;
+    --sage: #7E9B86;
+    --border: rgba(43, 39, 36, 0.08);
+    --shadow: 0 10px 30px rgba(43, 39, 36, 0.08);
+    --shadow-soft: 0 4px 16px rgba(43, 39, 36, 0.06);
+    --radius: 20px;
+    --radius-sm: 16px;
+    --maxw: 1080px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1715;
+      --surface: #242019;
+      --text: #F4EFE9;
+      --text-2: #B5ACA3;
+      --accent: #DB8499;
+      --accent-deep: #E6A2B6;
+      --sage: #93AE9B;
+      --border: rgba(244, 239, 233, 0.10);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--text);
+  }
+
+  h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); }
+  h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+  h3 { font-size: 1.2rem; }
+
+  p { color: var(--text-2); }
+
+  a { color: var(--accent-deep); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 16px 28px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn:hover { background: var(--accent-deep); text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn.full { width: 100%; }
+  .btn.store { background: var(--text); padding: 14px 24px; }
+  .btn.store:hover { background: var(--accent-deep); }
+
+  /* Header */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--text); }
+  .brand .dot { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); position: relative; }
+  .brand .dot::after { content: ""; position: absolute; top: 6px; left: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); }
+  .nav-links { display: flex; gap: 26px; align-items: center; }
+  .nav-links a { color: var(--text-2); font-weight: 500; font-size: 0.95rem; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav .btn { padding: 10px 20px; font-size: 0.95rem; }
+  @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero p.lead { font-size: 1.2rem; margin: 20px 0 28px; max-width: 30ch; }
+  .hero .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .hero .micro { margin-top: 18px; font-size: 0.9rem; color: var(--text-2); }
+  .hero .micro strong { color: var(--text); }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero p.lead { margin-left: auto; margin-right: auto; }
+    .hero .cta-row { justify-content: center; }
+    .phone-stage { order: -1; }
+  }
+
+  /* App Store badge */
+  .store-badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--text); color: #fff;
+    padding: 12px 20px; border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .store-badge:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); }
+  .store-badge .lbl { line-height: 1.1; text-align: left; }
+  .store-badge .lbl small { display: block; font-size: 0.65rem; opacity: 0.85; }
+  .store-badge .lbl span { display: block; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+
+  /* Phone mockup */
+  .phone-stage { display: flex; justify-content: center; }
+  .phone {
+    width: 300px; max-width: 78vw;
+    aspect-ratio: 300 / 620;
+    background: var(--surface);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow: var(--shadow), 0 0 0 2px var(--border) inset;
+    position: relative;
+    border: 8px solid #1c1916;
+  }
+  @media (prefers-color-scheme: dark) { .phone { border-color: #0c0a09; } }
+  .phone .notch {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 26px; background: #1c1916; border-radius: 999px; z-index: 3;
+  }
+  @media (prefers-color-scheme: dark) { .phone .notch { background: #0c0a09; } }
+  .screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, var(--bg), var(--surface));
+    border-radius: 34px;
+    overflow: hidden;
+    padding: 40px 18px 18px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .screen .sc-head { display: flex; align-items: center; gap: 12px; }
+  .screen .avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--sage)); flex: none; }
+  .screen .sc-head .t { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .screen .sc-head .s { font-size: 0.72rem; color: var(--text-2); }
+
+  .score-ring {
+    align-self: center;
+    width: 120px; height: 120px; border-radius: 50%;
+    display: grid; place-items: center;
+    background:
+      radial-gradient(closest-side, var(--surface) 78%, transparent 79%),
+      conic-gradient(var(--accent) 0 82%, var(--border) 82% 100%);
+    margin: 4px 0;
+  }
+  .score-ring .num { font-size: 2rem; font-weight: 800; color: var(--text); }
+  .score-ring .lab { font-size: 0.62rem; color: var(--text-2); margin-top: -4px; }
+
+  .metric { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 9px 12px; }
+  .metric .row { display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 6px; }
+  .metric .row b { color: var(--text); font-weight: 600; }
+  .metric .row span { color: var(--text-2); }
+  .bar { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 999px; }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  .section-head { text-align: center; max-width: 56ch; margin: 0 auto 44px; }
+  .section-head .eyebrow { color: var(--accent-deep); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+  .section-head p { margin-top: 12px; font-size: 1.05rem; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .step {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 24px; text-align: center;
+    box-shadow: var(--shadow-soft);
+  }
+  .step .n {
+    width: 52px; height: 52px; border-radius: 16px; margin: 0 auto 16px;
+    display: grid; place-items: center; font-weight: 800; font-size: 1.3rem;
+    color: #fff; background: var(--accent);
+  }
+  .step h3 { margin-bottom: 8px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Features */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .feature {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 24px; box-shadow: var(--shadow-soft);
+  }
+  .feature .ic {
+    width: 48px; height: 48px; border-radius: 14px; margin-bottom: 16px;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .feature .ic svg { width: 24px; height: 24px; stroke: var(--accent-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .feature.sage .ic { background: color-mix(in srgb, var(--sage) 18%, transparent); }
+  .feature.sage .ic svg { stroke: var(--sage); }
+  .feature h3 { margin-bottom: 8px; }
+  @media (max-width: 860px) { .features { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+
+  /* Social proof */
+  .proof { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .proof .stat { text-align: center; margin-bottom: 40px; }
+  .proof .stars { color: var(--accent); font-size: 1.6rem; letter-spacing: 4px; }
+  .proof .stat .big { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-top: 6px; }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .quote {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-soft);
+  }
+  .quote .stars { font-size: 0.95rem; letter-spacing: 2px; margin-bottom: 10px; }
+  .quote p { color: var(--text); font-size: 1rem; }
+  .quote .who { margin-top: 14px; font-size: 0.85rem; color: var(--text-2); font-weight: 600; }
+  @media (max-width: 760px) { .testimonials { grid-template-columns: 1fr; } }
+
+  /* Pricing strip */
+  .pricing { text-align: center; }
+  .price-card {
+    max-width: 480px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 36px 28px; box-shadow: var(--shadow);
+  }
+  .price-card .plans { display: flex; gap: 16px; justify-content: center; margin: 22px 0 26px; flex-wrap: wrap; }
+  .plan { flex: 1; min-width: 150px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; }
+  .plan.best { border-color: var(--accent); position: relative; }
+  .plan.best::after { content: "Best value"; position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+  .plan .amt { font-size: 1.7rem; font-weight: 800; color: var(--text); }
+  .plan .per { font-size: 0.85rem; color: var(--text-2); }
+
+  /* FAQ */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  details.faq {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 22px; margin-bottom: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  details.faq summary {
+    cursor: pointer; list-style: none; padding: 16px 0;
+    font-weight: 600; color: var(--text); display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary .chev { transition: transform 0.2s ease; flex: none; color: var(--accent-deep); }
+  details.faq[open] summary .chev { transform: rotate(180deg); }
+  details.faq p { padding: 0 0 18px; }
+
+  /* Responsible-use note */
+  .disclaimer {
+    background: color-mix(in srgb, var(--sage) 12%, var(--surface));
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 22px 26px; max-width: 760px; margin: 36px auto 0;
+    font-size: 0.92rem; color: var(--text-2);
+  }
+  .disclaimer strong { color: var(--text); }
+
+  /* Footer */
+  footer.site { background: var(--surface); border-top: 1px solid var(--border); padding: 48px 0 36px; }
+  .foot-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-start; }
+  .foot-brand { max-width: 320px; }
+  .foot-brand p { font-size: 0.9rem; margin-top: 10px; }
+  .foot-links { display: flex; gap: 40px; flex-wrap: wrap; }
+  .foot-links .col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 12px; }
+  .foot-links .col a { display: block; color: var(--text); font-size: 0.92rem; margin-bottom: 9px; font-weight: 500; }
+  .foot-links .col a:hover { color: var(--accent-deep); }
+  .foot-bottom { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-2); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .btn:hover, .store-badge:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#top"><span class="dot"></span>GlowIQ</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn" href="#download">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <h1>See your real skin. Get a routine made for you.</h1>
+        <p class="lead">GlowIQ is your AI skincare companion. Take a selfie, get an honest skin analysis with scores, and follow a personalized phased routine that adapts as your skin improves.</p>
+        <div class="cta-row" id="download">
+          <a class="store-badge" href="https://apps.apple.com/app/id000000000" aria-label="Download GlowIQ on the App Store">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.21-1.18 3.04-.83.93-2.2 1.65-3.34 1.56-.13-1.12.42-2.3 1.16-3.08.82-.86 2.27-1.5 3.36-1.52zM20.5 17.06c-.6 1.38-.88 2-1.66 3.22-1.08 1.69-2.6 3.79-4.48 3.81-1.67.02-2.1-1.09-4.37-1.08-2.27.01-2.74 1.1-4.41 1.08-1.88-.02-3.32-1.92-4.4-3.61C-1.3 16.71-1.62 11.16.55 8.18c1.06-1.49 2.74-2.43 4.31-2.43 1.6 0 2.61 1.09 3.94 1.09 1.29 0 2.07-1.09 3.92-1.09 1.4 0 2.88.76 3.94 2.08-3.46 1.9-2.9 6.85.84 9.23z"/></svg>
+            <span class="lbl"><small>Download on the</small><span>App Store</span></span>
+          </a>
+        </div>
+        <p class="micro"><strong>★ 4.8</strong> · 2M+ skin scans · Free to download</p>
+      </div>
+
+      <div class="phone-stage reveal">
+        <div class="phone" role="img" aria-label="GlowIQ skin report screen showing an overall skin score and metric breakdowns">
+          <div class="notch"></div>
+          <div class="screen">
+            <div class="sc-head">
+              <div class="avatar"></div>
+              <div>
+                <div class="t">Your skin report</div>
+                <div class="s">Today · Day 14 of glow</div>
+              </div>
+            </div>
+            <div class="score-ring">
+              <div>
+                <div class="num">82</div>
+                <div class="lab">SKIN SCORE</div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="row"><b>Hydration</b><span>Good · 78</span></div>
+              <div class="bar"><i style="width:78%; background:var(--sage)"></i></div>
+            </div>
+            <div class="metric">
+              <div class="row"><b>Texture</b><span>Improving · 71</span></div>
+              <div class="bar"><i style="width:71%; background:var(--accent)"></i></div>
+            </div>
+            <div class="metric">
+              <div class="row"><b>Redness</b><span>Low · 88</span></div>
+              <div class="bar"><i style="width:88%; background:var(--sage)"></i></div>
+            </div>
+            <div class="metric">
+              <div class="row"><b>Pores</b><span>Watch · 64</span></div>
+              <div class="bar"><i style="width:64%; background:var(--accent-deep)"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps to clearer, calmer skin</h2>
+        <p>No guesswork, no endless shelf of products. Just a clear picture of your skin and a plan that fits it.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="n">1</div>
+          <h3>Scan</h3>
+          <p>Take a quick selfie in good light. Our AI reads your skin across multiple dimensions in seconds.</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">2</div>
+          <h3>Get your report</h3>
+          <p>See your overall skin score plus detailed metrics for hydration, texture, redness, pores and more.</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">3</div>
+          <h3>Follow your routine</h3>
+          <p>Get a personalized, phased routine that introduces products gradually and adapts as your skin changes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Features</span>
+        <h2>Everything your skin needs in one place</h2>
+        <p>Built around your actual skin, not a one-size-fits-all template.</p>
+      </div>
+      <div class="features">
+        <div class="feature reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>AI skin analysis</h3>
+          <p>An instant, multi-metric read of your skin with an overall score you can actually track.</p>
+        </div>
+        <div class="feature sage reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 4h6M5 8h14M7 8v10a2 2 0 002 2h6a2 2 0 002-2V8"/></svg></div>
+          <h3>Phased routine</h3>
+          <p>A step-by-step plan that eases new products in gradually, so your skin builds tolerance instead of breaking out.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 011-1h2M20 7V5a1 1 0 00-1-1h-2M4 17v2a1 1 0 001 1h2M20 17v2a1 1 0 01-1 1h-2M3 12h18"/></svg></div>
+          <h3>Product &amp; ingredient scanner</h3>
+          <p>Scan any product to decode its ingredients and see whether it fits your skin and your routine.</p>
+        </div>
+        <div class="feature sage reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16l3-4 3 2 4-6"/></svg></div>
+          <h3>Daily tracking &amp; trends</h3>
+          <p>Scan daily and watch your scores trend over time, so you can see what's actually working.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-2h5L16 6"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          <h3>Progress photos</h3>
+          <p>Compare before-and-after photos side by side. Your progress photos stay private, on your device.</p>
+        </div>
+        <div class="feature sage reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Privacy by design</h3>
+          <p>Your selfie is analyzed transiently and never stored or sold. We keep only the numeric scores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="stat reveal">
+        <div class="stars" aria-label="Rated 4.8 out of 5 stars">★★★★★</div>
+        <div class="big">4.8 · 2M+ scans and counting</div>
+      </div>
+      <div class="testimonials">
+        <div class="quote reveal">
+          <div class="stars" style="color:var(--accent)">★★★★★</div>
+          <p>"I finally understand my skin instead of guessing. The phased routine stopped me from overdoing actives."</p>
+          <div class="who">— Maya, 27 · London</div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars" style="color:var(--accent)">★★★★★</div>
+          <p>"Scanning products before I buy has saved me so much money. No more shelf of stuff I never use."</p>
+          <div class="who">— Daniel, 34 · Berlin</div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars" style="color:var(--accent)">★★★★★</div>
+          <p>"Seeing my score climb week over week is weirdly motivating. The progress photos don't lie."</p>
+          <div class="who">— Sofia, 22 · Austin</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2>Start your glow today</h2>
+        <p>One subscription unlocks unlimited scans, your full routine, and the ingredient scanner.</p>
+      </div>
+      <div class="price-card reveal">
+        <div class="plans">
+          <div class="plan best">
+            <div class="amt">$29.99</div>
+            <div class="per">per year</div>
+          </div>
+          <div class="plan">
+            <div class="amt">$4.99</div>
+            <div class="per">per week</div>
+          </div>
+        </div>
+        <a class="btn full" href="https://apps.apple.com/app/id000000000">Download GlowIQ</a>
+        <p style="margin-top:16px; font-size:0.85rem;">Cancel anytime in your App Store settings. Subscriptions auto-renew unless turned off at least 24 hours before the end of the period.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:var(--surface); border-top:1px solid var(--border);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Good questions, honest answers</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq reveal">
+          <summary>Is the skin analysis accurate?<span class="chev">▾</span></summary>
+          <p>GlowIQ uses computer vision to estimate skin characteristics from your selfie and gives consistent, comparable scores over time. It's designed to help you notice trends and track change. It is an estimate for cosmetic and informational use, not a clinical diagnosis. Lighting, camera and angle can affect results, so we recommend scanning in similar conditions each time.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Is my photo private?<span class="chev">▾</span></summary>
+          <p>Yes. Your selfie is processed privately for analysis and is never stored on our servers or sold. Cloud analysis is transient — once your scores are calculated, only those numeric scores are saved. Any progress photos you choose to keep stay on your device. See our <a href="privacy-policy.html">Privacy Policy</a> for full details.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Can I cancel my subscription?<span class="chev">▾</span></summary>
+          <p>Absolutely. You can cancel anytime from your Apple ID subscription settings on your iPhone. Your subscription stays active until the end of the current billing period, and it won't renew after you cancel.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Is GlowIQ a medical tool?<span class="chev">▾</span></summary>
+          <p>No. GlowIQ is not a medical device and does not diagnose, treat, or prevent any condition. Scores and routines are estimates for cosmetic and informational purposes only. If you have a skin concern, a persistent issue, or are unsure about a product, please consult a qualified dermatologist or healthcare professional.</p>
+        </details>
+      </div>
+
+      <div class="disclaimer reveal">
+        <strong>Responsible use.</strong> GlowIQ is not a medical device. All skin scores, analyses, and routine suggestions are estimates provided for cosmetic and informational use only and are not a substitute for professional medical advice, diagnosis, or treatment. For any skin concern, please see a qualified dermatologist.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><span class="dot"></span>GlowIQ</a>
+        <p>Your AI skincare companion. See your real skin, follow a routine made for you, and track your glow over time.</p>
+      </div>
+      <div class="foot-links">
+        <div class="col">
+          <h4>Product</h4>
+          <a href="#how">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="col">
+          <h4>Legal</h4>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Terms of Use (Apple EULA)</a>
+        </div>
+        <div class="col">
+          <h4>Contact</h4>
+          <a href="mailto:support@glowiq.app">support@glowiq.app</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 GlowIQ. All rights reserved. GlowIQ is not a medical device; scores and routines are estimates for cosmetic and informational use only. Consult a dermatologist for any skin concerns.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
